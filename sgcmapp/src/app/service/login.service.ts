@@ -44,6 +44,28 @@ export class LoginService {
     })
   }
 
+  logout(): void{
+    sessionStorage.removeItem('token');
+    sessionStorage.removeItem('usuario');
+    sessionStorage.removeItem('expiracao');
+    this.router.navigate(['/login']);
+  }
+
+  estaLogado(): boolean {
+    const token = sessionStorage.getItem('token');
+    if (token==null){
+      return false;
+    }
+    const expiracao = sessionStorage.getItem('expiracao');
+    const dataExpiracao = new Date(Number(expiracao));
+    const agora = new Date();
+    const estaExpirado = agora > dataExpiracao;
+    if (estaExpirado){
+      this.logout();
+    }
+    return !estaExpirado;
+  }
+
   getCabecalho(requisicao: HttpRequest<any>): HttpRequest<any> {
     const token = sessionStorage.getItem('token');
     if (token){

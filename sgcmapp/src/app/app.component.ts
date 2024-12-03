@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
+import { LoginService } from './service/login.service';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent {
   paginaAtual = '';
 
   constructor(
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) {
     router.events.subscribe(evento => {
       if (evento instanceof NavigationEnd) {
@@ -21,4 +23,9 @@ export class AppComponent {
       }
     });
   }
+
+  logout(): void {
+    this.loginService.logout();
+  }
+
 }
