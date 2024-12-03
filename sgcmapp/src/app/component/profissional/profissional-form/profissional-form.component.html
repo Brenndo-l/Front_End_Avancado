@@ -11,15 +11,15 @@
                [(ngModel)]="registro.registroConselho">
 
         <label for="especialidade">Especialidade</label>
-        <select [compareWith]="compareById" name="especialidade" id="especialidade" required
-                [(ngModel)]="registro.especialidade">
-            <option *ngFor="let e of especialidades" [ngValue]="e">{{e.nome}}</option>
+        <select name="especialidade" id="especialidade" required
+                [(ngModel)]="registro.especialidade_id">
+            <option *ngFor="let e of especialidades" [ngValue]="e.id">{{e.nome}}</option>
         </select>
 
         <label for="unidade">Unidade</label>
-        <select [compareWith]="compareById" name="unidade" id="unidade" required
-                [(ngModel)]="registro.unidade">
-            <option *ngFor="let u of unidades" [ngValue]="u">{{u.nome}}</option>
+        <select name="unidade" id="unidade" required
+                [(ngModel)]="registro.unidade_id">
+            <option *ngFor="let u of unidades" [ngValue]="u.id">{{u.nome}}</option>
         </select>
 
         <label for="telefone">Telefone</label>

@@ -12,15 +12,17 @@ html, body, app-root {
     height: 100%;
 }
 
-/* Header e Footer */
-.visually-hidden {
+.visually-hidden:not(:focus):not(:active) {
     position: absolute;
     height: 1px;
     width: 1px;
-    clip: rect(0 0 0 0);
+    overflow: hidden;
     clip-path: inset(50%);
+    clip: rect(0 0 0 0);
     white-space: nowrap;
 }
+
+/* Header e Footer */
 
 div#logo {
     margin: auto 0;
@@ -311,8 +313,11 @@ nav {
                 color: #383838;
             }
         }
-        li#dropdown:hover div#dropdown_menu {
-            display: block;
+        li#dropdown {
+            &:hover div#dropdown_menu,
+            &:focus-within div#dropdown_menu {
+                display: block;
+            }
         }
     }
     div#dropdown_menu {

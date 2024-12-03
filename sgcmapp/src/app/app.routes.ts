@@ -6,6 +6,7 @@ import { ConvenioFormComponent } from './component/convenio/convenio-form/conven
 import { ConvenioListComponent } from './component/convenio/convenio-list/convenio-list.component';
 import { EspecialidadeFormComponent } from './component/especialidade/especialidade-form/especialidade-form.component';
 import { EspecialidadeListComponent } from './component/especialidade/especialidade-list/especialidade-list.component';
+import { LoginComponent } from './component/login/login.component';
 import { PacienteFormComponent } from './component/paciente/paciente-form/paciente-form.component';
 import { PacienteListComponent } from './component/paciente/paciente-list/paciente-list.component';
 import { ProfissionalFormComponent } from './component/profissional/profissional-form/profissional-form.component';
@@ -32,5 +33,6 @@ export const routes: Routes = [
         { path: 'especialidade-form', component: EspecialidadeFormComponent },
         { path: 'usuario-list', component: UsuarioListComponent },
         { path: 'usuario-form', component: UsuarioFormComponent }
-    ] }
+    ] },
+    { path: 'login', component: LoginComponent }
 ];

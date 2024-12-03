@@ -54,10 +54,6 @@ export class ProfissionalFormComponent implements ICrudForm<Profissional> {
   registro: Profissional = <Profissional>{};
   especialidades: Especialidade[] = [];
   unidades: Unidade[] = [];
-
-  compareById = (a: any, b: any) => {
-    return a && b && a.id === b.id;
-  }
   
   save(): void {
     this.servico.save(this.registro).subscribe({

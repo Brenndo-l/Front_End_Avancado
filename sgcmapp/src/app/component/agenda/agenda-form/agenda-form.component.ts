@@ -66,10 +66,6 @@ export class AgendaFormComponent implements ICrudForm<Atendimento> {
   pacientes: Paciente[] = [];
   profissionais: Profissional[] = [];
 
-  compareById = (a: any, b: any) => {
-    return a && b && a.id == b.id;
-  }
-
   save(): void {
     this.servico.save(this.registro).subscribe({
       complete: () => {

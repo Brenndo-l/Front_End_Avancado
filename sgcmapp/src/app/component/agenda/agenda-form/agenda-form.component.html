@@ -4,18 +4,16 @@
 
         <label for="profissional">Profissional</label>
         <select name="profissional" id="profissional" required
-                [(ngModel)]="registro.profissional"
-                [compareWith]="compareById">
+                [(ngModel)]="registro.profissional_id">
             <option *ngFor="let item of profissionais"
-                    [ngValue]="item">{{item.nome}}</option>
+                    [ngValue]="item.id">{{item.nome}}</option>
         </select>
 
         <label for="paciente">Paciente</label>
         <select name="paciente" id="paciente" required
-                [(ngModel)]="registro.paciente"
-                [compareWith]="compareById">
+                [(ngModel)]="registro.paciente_id">
             <option *ngFor="let item of pacientes"
-                    [ngValue]="item">{{item.nome}}</option>
+                    [ngValue]="item.id">{{item.nome}}</option>
         </select>
 
         <label for="data">Data</label>
@@ -43,12 +41,10 @@
 
         <label for="convenio">Convênio</label>
         <select name="convenio" id="convenio"
-                [(ngModel)]="registro.convenio"
-                [compareWith]="compareById"
-                (ngModelChange)="registro.convenio = $event && $event != 'null' ? $event : null">
+                [(ngModel)]="registro.convenio_id">
             <option [value]="null">Sem convênio</option>
             <option *ngFor="let item of convenios"
-                    [ngValue]="item">{{item.nome}}</option>
+                    [ngValue]="item.id">{{item.nome}}</option>
         </select>
 
     </div>
@@ -57,4 +53,3 @@
     <input type="submit" value="Salvar" [disabled]="form.invalid">
 
 </form>
-<pre>{{ registro | json }}</pre>

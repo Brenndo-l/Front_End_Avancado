@@ -14,9 +14,9 @@ export class AppComponent {
 
   constructor(
     private router: Router
-  ){
+  ) {
     router.events.subscribe(evento => {
-      if (evento instanceof NavigationEnd){
+      if (evento instanceof NavigationEnd) {
         this.paginaAtual = evento.url;
       }
     });

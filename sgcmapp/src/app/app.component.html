@@ -1,5 +1,5 @@
-<a [routerLink]="paginaAtual" fragment="main">
-    Ir para o contéudo principal
+<a class="skip-link visually-hidden" [routerLink]="paginaAtual" fragment="main">
+    Ir para o conteúdo principal
 </a>
 <header>
   <div id="logo">
@@ -9,6 +9,7 @@
   <div id="usuarioInfo">
       <span>Usuário: Administrador (admin)</span>
       <span>Papel: ADMIN</span>
+      <label for="tema" class="visually-hidden">Tema</label>
       <select id="tema">
           <option value="">Escolha um tema</option>
           <option value="azul">Azul</option>

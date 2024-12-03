@@ -7,6 +7,8 @@ export type Profissional = {
     registroConselho: string;
     telefone: string;
     email: string;
-    especialidade: Especialidade;
-    unidade: Unidade;
+    especialidade_id: number;
+    especialidade_nome: string;
+    unidade_id: number;
+    unidade_nome: string;
 }
