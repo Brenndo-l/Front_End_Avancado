@@ -46,9 +46,12 @@ export class LoginService {
 
   getCabecalho(requisicao: HttpRequest<any>): HttpRequest<any> {
     const token = sessionStorage.getItem('token');
-    return requisicao.clone({
-      headers: requisicao.headers.set('Authorization', 'Bearer ' + token)
-    });
+    if (token){
+      return requisicao.clone({
+        headers: requisicao.headers.set('Authorization', 'Bearer ' + token)
+      });
+    }
+    return requisicao;
   }
 
 }
