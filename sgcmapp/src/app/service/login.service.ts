@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
 import { Usuario } from '../model/usuario';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,13 @@ export class LoginService {
   constructor(
     private http: HttpClient,
     private router: Router
-  ) { }
+  ) { 
+    const dadosUsuario = sessionStorage.getItem('usuario') || '{}';
+    const usuario = JSON.parse(dadosUsuario);
+    this.usuarioAutenticado.next(usuario);
+  }
+
+  usuarioAutenticado: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(<Usuario>{});
 
   private iniciarSessaoUsuario(token: string): void {
 
@@ -29,6 +36,8 @@ export class LoginService {
     sessionStorage.setItem('token', token);
     sessionStorage.setItem('usuario', JSON.stringify(usuario));
     sessionStorage.setItem('expiracao', expiracao.toString());
+
+    this.usuarioAutenticado.next(usuario);
 
   }
 
