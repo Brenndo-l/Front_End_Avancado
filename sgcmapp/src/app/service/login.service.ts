@@ -17,9 +17,33 @@ export class LoginService {
     const dadosUsuario = sessionStorage.getItem('usuario') || '{}';
     const usuario = JSON.parse(dadosUsuario);
     this.usuarioAutenticado.next(usuario);
+
+    if(this.estaLogado()){
+      this.agendarRenovacaoToken();
+    } 
+  }
+  usuarioAutenticado: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(<Usuario>{});
+  private temRequisicaoRecente: boolean = false;
+  private intervaloRenovacaoToken: any;
+
+  private agendarRenovacaoToken(): void {
+    const intervalo = 60000;
+    this.intervaloRenovacaoToken = setInterval(() => {
+      if(this.temRequisicaoRecente){
+        this.renovarToken();
+        this.temRequisicaoRecente = false;
+      }
+    }, intervalo);
   }
 
-  usuarioAutenticado: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(<Usuario>{});
+  private renovarToken(): void{
+    const url = environment.API_URL + '/renovar';
+    this.http.get(url, { responseType: 'text' }).subscribe({
+      next: (token: string) => {
+        this.iniciarSessaoUsuario(token);
+      }
+    })
+  }
 
   private iniciarSessaoUsuario(token: string): void {
 
@@ -57,6 +81,7 @@ export class LoginService {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('usuario');
     sessionStorage.removeItem('expiracao');
+    clearInterval(this.intervaloRenovacaoToken);
     this.router.navigate(['/login']);
   }
 
@@ -78,6 +103,7 @@ export class LoginService {
   getCabecalho(requisicao: HttpRequest<any>): HttpRequest<any> {
     const token = sessionStorage.getItem('token');
     if (token){
+      this.temRequisicaoRecente = true;
       return requisicao.clone({
         headers: requisicao.headers.set('Authorization', 'Bearer ' + token)
       });

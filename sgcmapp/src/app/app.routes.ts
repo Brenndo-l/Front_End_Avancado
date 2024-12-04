@@ -15,8 +15,10 @@ import { UnidadeFormComponent } from './component/unidade/unidade-form/unidade-f
 import { UnidadeListComponent } from './component/unidade/unidade-list/unidade-list.component';
 import { UsuarioFormComponent } from './component/usuario/usuario-form/usuario-form.component';
 import { UsuarioListComponent } from './component/usuario/usuario-list/usuario-list.component';
+import { autenticacaoGuard } from './service/autenticacao.guard';
 
 export const routes: Routes = [
+    { path: '', canActivate: [autenticacaoGuard], children: [  
     { path: 'agenda-list', component: AgendaListComponent },
     { path: 'agenda-form', component: AgendaFormComponent },
     { path: 'atendimento', component: AtendimentoComponent },
@@ -26,13 +28,14 @@ export const routes: Routes = [
     { path: 'profissional-form', component: ProfissionalFormComponent },
     { path: 'convenio-list', component: ConvenioListComponent},
     { path: 'convenio-form', component: ConvenioFormComponent},
-    { path: 'config', children: [
+    { path: 'config', canActivate: [autenticacaoGuard], data: { papel: 'ROLE_ADMIN' }, children: [
         { path: 'unidade-list', component: UnidadeListComponent },
         { path: 'unidade-form', component: UnidadeFormComponent },
         { path: 'especialidade-list', component: EspecialidadeListComponent },
         { path: 'especialidade-form', component: EspecialidadeFormComponent },
         { path: 'usuario-list', component: UsuarioListComponent },
         { path: 'usuario-form', component: UsuarioFormComponent }
-    ] },
+    ]}
+    ]},
     { path: 'login', component: LoginComponent }
 ];

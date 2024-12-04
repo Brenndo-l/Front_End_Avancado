@@ -23,7 +23,7 @@ public class TokenService {
     private String secret;
 
     private Instant gerarDataExpiracao() {
-        var dateTime = LocalDateTime.now().plusMinutes(30);
+        var dateTime = LocalDateTime.now().plusSeconds(15);
         var zoneId = ZoneId.systemDefault();
         var zoneDateTime = dateTime.atZone(zoneId);
         return zoneDateTime.toInstant();

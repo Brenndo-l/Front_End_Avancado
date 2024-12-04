@@ -7,7 +7,7 @@
       <span id="titulo">{{ title }}</span>
   </div>
   <div id="usuarioInfo" *ngIf="estaLogado()">
-      <span>Usuário: {{usuario.nomeCompleto}} {{usuario.nomeUsuario}}</span>
+      <span>Usuário: {{usuario.nomeCompleto}} ({{usuario.nomeUsuario}})</span>
       <span>Papel: {{usuario.papel}}</span>
       <label for="tema" class="visually-hidden">Tema</label>
       <select id="tema">
