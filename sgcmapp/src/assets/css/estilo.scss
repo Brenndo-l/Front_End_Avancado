@@ -193,6 +193,14 @@ form {
                 font-family: inherit;
             }
         }
+        input, select {
+            ~small {
+                color: red;
+                grid-column: 2;
+                margin: -0.5em 0.5em 0;
+                text-align: left;
+            }
+        }
     }
     &.inativo {
         display: none;

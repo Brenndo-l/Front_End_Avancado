@@ -11,17 +11,19 @@ import { BehaviorSubject } from 'rxjs';
 export class LoginService {
 
   constructor(
-    private http: HttpClient,
-    private router: Router
-  ) { 
+      private http: HttpClient,
+      private router: Router) {
+
     const dadosUsuario = sessionStorage.getItem('usuario') || '{}';
     const usuario = JSON.parse(dadosUsuario);
     this.usuarioAutenticado.next(usuario);
 
-    if(this.estaLogado()){
+    if (this.estaLogado()) {
       this.agendarRenovacaoToken();
-    } 
+    }
+
   }
+
   usuarioAutenticado: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(<Usuario>{});
   private temRequisicaoRecente: boolean = false;
   private intervaloRenovacaoToken: any;
@@ -29,20 +31,20 @@ export class LoginService {
   private agendarRenovacaoToken(): void {
     const intervalo = 60000;
     this.intervaloRenovacaoToken = setInterval(() => {
-      if(this.temRequisicaoRecente){
+      if (this.temRequisicaoRecente) {
         this.renovarToken();
         this.temRequisicaoRecente = false;
       }
     }, intervalo);
   }
 
-  private renovarToken(): void{
+  private renovarToken(): void {
     const url = environment.API_URL + '/renovar';
     this.http.get(url, { responseType: 'text' }).subscribe({
       next: (token: string) => {
         this.iniciarSessaoUsuario(token);
       }
-    })
+    });
   }
 
   private iniciarSessaoUsuario(token: string): void {
@@ -77,34 +79,40 @@ export class LoginService {
     })
   }
 
-  logout(): void{
+  logout(): void {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('usuario');
     sessionStorage.removeItem('expiracao');
+    document.cookie = 'XSRF-TOKEN=; Max-Age=0; path=/';
     clearInterval(this.intervaloRenovacaoToken);
     this.router.navigate(['/login']);
   }
 
   estaLogado(): boolean {
+
     const token = sessionStorage.getItem('token');
-    if (token==null){
+    if (token == null) {
       return false;
     }
+
     const expiracao = sessionStorage.getItem('expiracao');
     const dataExpiracao = new Date(Number(expiracao));
     const agora = new Date();
     const estaExpirado = agora > dataExpiracao;
-    if (estaExpirado){
+    if (estaExpirado) {
       this.logout();
     }
+
     return !estaExpirado;
+
   }
 
   getCabecalho(requisicao: HttpRequest<any>): HttpRequest<any> {
     const token = sessionStorage.getItem('token');
-    if (token){
+    if (token) {
       this.temRequisicaoRecente = true;
       return requisicao.clone({
+        withCredentials: true,
         headers: requisicao.headers.set('Authorization', 'Bearer ' + token)
       });
     }

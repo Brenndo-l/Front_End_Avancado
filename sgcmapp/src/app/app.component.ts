@@ -1,7 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterOutlet } from '@angular/router';
 import { LoginService } from './service/login.service';
-import { CommonModule } from '@angular/common';
 import { Usuario } from './model/usuario';
 
 @Component({
@@ -12,14 +12,15 @@ import { Usuario } from './model/usuario';
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+
   title = 'SGCM';
   paginaAtual = '';
   usuario: Usuario = <Usuario>{};
 
   constructor(
-    private router: Router,
-    private loginService: LoginService
-  ) {
+      private router: Router,
+      private loginService: LoginService) {
+
     router.events.subscribe(evento => {
       if (evento instanceof NavigationEnd) {
         this.paginaAtual = evento.url;
@@ -34,14 +35,14 @@ export class AppComponent {
 
   }
 
-
-  isAdmin(): boolean{
+  isAdmin(): boolean {
     return this.usuario.papel == 'ROLE_ADMIN';
   }
 
-  estaLogado(): boolean{
+  estaLogado(): boolean {
     return this.loginService.estaLogado();
   }
+
   logout(): void {
     this.loginService.logout();
   }

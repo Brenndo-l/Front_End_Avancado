@@ -18,24 +18,24 @@ import { UsuarioListComponent } from './component/usuario/usuario-list/usuario-l
 import { autenticacaoGuard } from './service/autenticacao.guard';
 
 export const routes: Routes = [
-    { path: '', canActivate: [autenticacaoGuard], children: [  
-    { path: 'agenda-list', component: AgendaListComponent },
-    { path: 'agenda-form', component: AgendaFormComponent },
-    { path: 'atendimento', component: AtendimentoComponent },
-    { path: 'paciente-list', component: PacienteListComponent },
-    { path: 'paciente-form', component: PacienteFormComponent },
-    { path: 'profissional-list', component: ProfissionalListComponent },
-    { path: 'profissional-form', component: ProfissionalFormComponent },
-    { path: 'convenio-list', component: ConvenioListComponent},
-    { path: 'convenio-form', component: ConvenioFormComponent},
-    { path: 'config', canActivate: [autenticacaoGuard], data: { papel: 'ROLE_ADMIN' }, children: [
-        { path: 'unidade-list', component: UnidadeListComponent },
-        { path: 'unidade-form', component: UnidadeFormComponent },
-        { path: 'especialidade-list', component: EspecialidadeListComponent },
-        { path: 'especialidade-form', component: EspecialidadeFormComponent },
-        { path: 'usuario-list', component: UsuarioListComponent },
-        { path: 'usuario-form', component: UsuarioFormComponent }
-    ]}
+    { path: '', canActivate: [autenticacaoGuard], children: [
+        { path: 'agenda-list', component: AgendaListComponent },
+        { path: 'agenda-form', component: AgendaFormComponent },
+        { path: 'atendimento', component: AtendimentoComponent },
+        { path: 'paciente-list', component: PacienteListComponent },
+        { path: 'paciente-form', component: PacienteFormComponent },
+        { path: 'profissional-list', component: ProfissionalListComponent },
+        { path: 'profissional-form', component: ProfissionalFormComponent },
+        { path: 'convenio-list', component: ConvenioListComponent},
+        { path: 'convenio-form', component: ConvenioFormComponent},
+        { path: 'config', canActivate: [autenticacaoGuard], data: { papel: 'ROLE_ADMIN' }, children: [
+            { path: 'unidade-list', component: UnidadeListComponent },
+            { path: 'unidade-form', component: UnidadeFormComponent },
+            { path: 'especialidade-list', component: EspecialidadeListComponent },
+            { path: 'especialidade-form', component: EspecialidadeFormComponent },
+            { path: 'usuario-list', component: UsuarioListComponent },
+            { path: 'usuario-form', component: UsuarioFormComponent }
+        ] }
     ]},
     { path: 'login', component: LoginComponent }
 ];

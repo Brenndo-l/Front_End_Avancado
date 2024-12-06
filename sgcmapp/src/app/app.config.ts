@@ -1,14 +1,15 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { HttpClientXsrfModule, provideHttpClient, withInterceptors } from '@angular/common/http';
 import { routes } from './app.routes';
-import { erroInterceptor } from './interceptor/erro.interceptor';
 import { autenticacaoInterceptor } from './interceptor/autenticacao.interceptor';
+import { erroInterceptor } from './interceptor/erro.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    provideHttpClient(withInterceptors([erroInterceptor, autenticacaoInterceptor]))
+    provideHttpClient(withInterceptors([erroInterceptor, autenticacaoInterceptor])),
+    importProvidersFrom(HttpClientXsrfModule)
   ]
 };
